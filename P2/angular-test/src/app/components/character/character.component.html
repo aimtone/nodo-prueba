@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-sm-3">
+
+    <div *ngIf="item === null">
+      <div class="loading"></div>
+    </div>
+    <div class="text-center" *ngIf="item !== null">
+        <figure *ngIf="item.data.imageLink !== undefined" class="figure"> 
+          <img [src]="'https://api.got.show' + item.data.imageLink" class="img-fluid img-thumbnail rounded" [alt]="item.data.name"
+        [title]="item.data.name">
+          <figcaption class="figure-caption">{{item?.data.name}}</figcaption>
+        </figure>
+        <img *ngIf="item.data.imageLink === undefined" src="assets/images/no-image.jpg" class="img-fluid img-thumbnail rounded" alt="No image"
+        [title]="item.data.name">
+    </div>
+    
+  </div>
+    <div class="col-sm-9 table-responsive">
+      <table class="table table-sm">
+        <tr>
+          <th>Título(s)</th>
+          <td>{{item?.data.titles}}</td>
+        </tr>
+        <tr>
+          <th>Nombres</th>
+          <td>{{item?.data.name}}</td>
+        </tr>
+        <tr>
+          <th>Fecha de Nacimiento</th>
+          <td>{{item?.data.dateOfBirth}}</td>
+        </tr>
+        <tr>
+          <th>Fecha de muerte</th>
+          <td>{{item?.data.dateOfDeath}}</td>
+        </tr>
+        <tr>
+          <th>Casa</th>
+          <td>{{item?.data.house}}</td>
+        </tr>
+        <tr>
+          <th>Cultura</th>
+          <td>{{item?.data.culture}}</td>
+        </tr>
+        <tr>
+          <th>Género</th>
+          <td>{{item?.data.male ? 'Masculino' : 'Femenino' }}</td>
+        </tr>
+        <tr>
+          <th>Libros</th>
+          <td>{{item?.data.books}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>

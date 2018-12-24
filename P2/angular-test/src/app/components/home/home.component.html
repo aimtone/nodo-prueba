@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-sm-4 offset-sm-8">
+      <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar personaje...">
+      <br>
+  </div>
+</div>
+<div class="row d-none d-md-block">
+  <div class="col-sm table-responsive">
+    <table class="table table-hover  table-sm">
+      <thead>
+        <tr>
+          <th></th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Casa</th>
+          <th scope="col">Detalle</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="items == null">
+        <tr class="text-center" >
+          <td colspan="4"><div class="loading"></div></td>
+        </tr>
+      </tbody>
+      
+      <tbody *ngIf="items != null && items.length == 0">
+        <tr class="text-center" >
+          <td colspan="3">Ningún registro encontrado</td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="items != null && items.length != 0">
+        <tr *ngFor="let item of items | filter : 'name' : searchText">
+            <td>
+                <img *ngIf="item.imageLink !== undefined" [src]="'https://api.got.show' + item.imageLink" class=" rounded-circle" width="50px" height="50px" [alt]="item.name"
+                [title]="item.name">
+                <img *ngIf="item.imageLink === undefined" src="assets/images/no-image.jpg" class=" rounded-circle" width="50px" height="50px" alt="No image"
+                [title]="item.name">
+            </td>
+          <td>{{item.name}}</td>
+          <td>{{item.house}}</td>
+          <td><button class="btn btn-dark btn-sm text-light" [routerLink]="['/character', item._id]">Ver detalles</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ 
+</div>
+<!-- mobile -->
+<div class="row d-block d-sm-none">
+    <div class="col-sm table-responsive">
+      <table class="table table-hover  table-sm">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+  
+        <tbody *ngIf="items == null">
+          <tr class="text-center" >
+            <td colspan="3"><div class="loading"></div></td>
+          </tr>
+        </tbody>
+        
+        <tbody *ngIf="items != null && items.length == 0">
+          <tr class="text-center" >
+            <td colspan="3">Ningún registro encontrado</td>
+          </tr>
+        </tbody>
+  
+        <tbody *ngIf="items != null && items.length != 0">
+          <tr [routerLink]="['/character', item._id]" *ngFor="let item of items | filter : 'name' : searchText">
+            <td style="border: none !important">
+                <img *ngIf="item.imageLink !== undefined" [src]="'https://api.got.show' + item.imageLink" class=" rounded-circle" width="50px" height="50px" [alt]="item.name"
+                [title]="item.name">
+                <img *ngIf="item.imageLink === undefined" src="assets/images/no-image.jpg" class=" rounded-circle" width="50px" height="50px" alt="No image"
+                [title]="item.name">
+            </td>
+            <td>{{item.name}} <br> <small [ngClass]="{'text-muted': item.house === undefined}">{{item.house !== undefined ? item.house : "Información no disponible"}}</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
+
